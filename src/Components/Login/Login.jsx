@@ -2,6 +2,7 @@ import {  useContext, useState } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import { Link, useNavigate,  } from "react-router-dom";
 import { toast } from "react-toastify";
+import { bg } from "../../assets";
 
 const login = () => {
   const [error, setError] = useState("");
@@ -41,17 +42,19 @@ const login = () => {
   const notification = () => toast("Successfully Login");
 
   return (
-    <div className="h-[80vh] font-DM">
-      <div className="w-full relative">
-        <img
-          src="https://i.ibb.co/3fzLVLg/matthew-henry-T-G9-PVLOf-OY-unsplash.jpg"
-          alt="matthew-henry-T-G9-PVLOf-OY-unsplash"
-          border="0"
-        ></img>
-      </div>
-      <section className="absolute top-10 left-80 w-3/5 mt-40">
+   
+      <div
+        style={{
+          background: `url(${bg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+        className="w-screen h-screen flex justify-center items-center "
+      >
+      <section className="w-full">
         <div className="flex flex-col items-center justify-center  px-6 py-8 mx-auto md:h-screen lg:py-0 text-white">
-          <div className="w-full bg-transparent border border-white backdrop-blur-sm rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full bg-transparent backdrop-blur-md rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 ">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-3xl text-center font-bold leading-tight tracking-tight text-white">
                 Login to your account
@@ -97,17 +100,19 @@ const login = () => {
                   <button
                     onClick={notification}
                     type="submit"
-                    className="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                    className="text-white bg-gradient-to-r from-black to-slate-600 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                   >
                     Login
                   </button>
                 </div>
-                <p className="text-sm font-light text-white">
+               <div className="flex justify-center">
+               <p className="text-sm font-light text-white">
                   Do not have an account yet?
                   <Link className="ml-2" to="/register">
                     Register
                   </Link>
                 </p>
+               </div>
               </form>
               <div className="flex justify-center">
                 <button
@@ -135,7 +140,8 @@ const login = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    
   );
 };
 
