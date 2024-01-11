@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
-import { bg } from "../../assets";
+
 
 const Register = () => {
   const { createUser, googleSignIn, handleUpdateProfile } =
@@ -96,7 +96,7 @@ const Register = () => {
    
       <div
         style={{
-          background: `url(${bg})`,
+          background: `url("https://i.ibb.co/p2RyHLN/bg.jpg")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

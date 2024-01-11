@@ -2,7 +2,7 @@ import {  useContext, useState } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import { Link, useNavigate,  } from "react-router-dom";
 import { toast } from "react-toastify";
-import { bg } from "../../assets";
+
 
 const login = () => {
   const [error, setError] = useState("");
@@ -45,7 +45,7 @@ const login = () => {
    
       <div
         style={{
-          background: `url(${bg})`,
+          background: `url("https://i.ibb.co/p2RyHLN/bg.jpg")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
