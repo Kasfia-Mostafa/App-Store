@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import AdminHome from "../Pages/Admin/AdminHome";
+import AdminApps from "../Pages/Admin/AdminApps";
+import AdminUsers from "../Pages/Admin/AdminUsers";
 import Layout from "../Layout/Layout";
 import Home from "../Pages/Home";
 import AuthLayout from "../Layout/AuthLayout";
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
       {
         path: 'adminHome',
         element: <AdminHome></AdminHome>
+      },
+      {
+        path: 'apps',
+        element: <AdminApps></AdminApps>
+      },
+      {
+        path: 'users',
+        element: <AdminUsers></AdminUsers>
       }
     ]
   },
