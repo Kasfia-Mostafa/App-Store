@@ -1,8 +1,13 @@
+import NewApps from "./Apps/NewApps";
+import ListOfApps from "./ListOfApps";
 
 const AdminApps = () => {
   return (
-    <div>
-      <h2>Admin Apps</h2>
+    <div className="w-full grid grid-cols-2 lg:grid-cols-2">
+      {/* left section */}
+      <NewApps></NewApps>
+      {/* right section */}
+      <ListOfApps></ListOfApps>
     </div>
   );
 };
