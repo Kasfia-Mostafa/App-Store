@@ -14,7 +14,8 @@ const NewApps = () => {
   const [description, setDescription] = useState("");
 
   const bannerHandleChange = (id, value) => {
-    console.log(value);
+    const updated = banners.map(item => item.id === id ? {...item,uri: value}: item)
+    setBanners(updated)
   };
 
   const handleAddInput = () => {
@@ -31,7 +32,10 @@ const NewApps = () => {
         placeholder="App Title"
         onChangeText={(data) => setTitle(data)}
       />
-
+      <InputContainer
+        placeholder="Cover Image"
+        onChangeText={(data) => setCover(data)}
+      />
       <div className="w-full flex flex-col justify-start items-center p-2 border border-gray-600 border-dashed rounder-md gap-2">
         {banners.map((input) => (
           <div
@@ -45,7 +49,10 @@ const NewApps = () => {
               value={input.uri}
               onChange={(e) => bannerHandleChange(input.id, e.target.value)}
             />
-            <div className="w-10 h-10 rounded-md flex justify-center items-center bg-red-400" onClick={handleRemoveInput}>
+            <div
+              className="w-10 h-10 rounded-md flex justify-center items-center bg-red-400 cursor-pointer"
+              onClick={handleRemoveInput}
+            >
               <FaMinus className="text-textPrimary"></FaMinus>
             </div>
           </div>
@@ -78,10 +85,7 @@ const NewApps = () => {
         placeholder="Total Downloads"
         onChangeText={(data) => setDownloads(data)}
       />
-      <InputContainer
-        placeholder="Cover Image"
-        onChangeText={(data) => setCover(data)}
-      />
+
       <textarea
         rows="10"
         className="w-full rounded-md outline-none border border-third shadow-md bg-secondary px-4 text-lg font-semibold fonts-sans"
