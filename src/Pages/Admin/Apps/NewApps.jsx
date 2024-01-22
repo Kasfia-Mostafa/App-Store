@@ -14,8 +14,10 @@ const NewApps = () => {
   const [description, setDescription] = useState("");
 
   const bannerHandleChange = (id, value) => {
-    const updated = banners.map(item => item.id === id ? {...item,uri: value}: item)
-    setBanners(updated)
+    const updated = banners.map((item) =>
+      item.id === id ? { ...item, uri: value } : item
+    );
+    setBanners(updated);
   };
 
   const handleAddInput = () => {
@@ -24,7 +26,31 @@ const NewApps = () => {
       uri: "",
     };
     setBanners((previousState) => [...previousState, newInput]);
+    console.log(banners);
   };
+
+  const handleRemoveInput = (id) => {
+    const updatedBanners = banners.filter((item) => item.id !== id);
+    setBanners(updatedBanners);
+  };
+
+  const saveTheDoc = async () => {
+    const id = `${Date.now()}`;
+    const _doc = {
+      _id: id,
+      title,
+      company,
+      appIcons,
+      reviews,
+      totalReviews,
+      description,
+      cover,
+      banners,
+    };
+    console.log(_doc)
+  };
+
+  const clearAllFixed = () => {};
 
   return (
     <div className="w-full flex flex-col justify-start items-center px-4 py-3 gap-2 ">
@@ -51,7 +77,7 @@ const NewApps = () => {
             />
             <div
               className="w-10 h-10 rounded-md flex justify-center items-center bg-red-400 cursor-pointer"
-              onClick={handleRemoveInput}
+              onClick={() => handleRemoveInput(input.id)}
             >
               <FaMinus className="text-textPrimary"></FaMinus>
             </div>
@@ -93,6 +119,20 @@ const NewApps = () => {
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Description"
       />
+      <div className="w-full flex justify-end item-center gap-20">
+        <button
+          className="border border-gray-600 px-8 py-2 rounded-md hover:border-none hover:bg-gradient-to-br hover:from-heroPrimary hover:to-heroSecondary hover:text-black cursor-pointer transition-all ease-in-out duration-100 active:scale-95"
+          onClick={saveTheDoc}
+        >
+          Add
+        </button>
+        <button
+          className="border border-gray-600 px-8 py-2 rounded-md hover:border-none hover:bg-gradient-to-br hover:from-heroPrimary hover:to-heroSecondary hover:text-black cursor-pointer transition-all ease-in-out duration-100 active:scale-95"
+          onClick={clearAllFixed}
+        >
+          Clear
+        </button>
+      </div>
     </div>
   );
 };
