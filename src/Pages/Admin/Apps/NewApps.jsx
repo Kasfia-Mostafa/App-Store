@@ -33,7 +33,6 @@ const NewApps = () => {
     const updatedBanners = banners.filter((item) => item.id !== id);
     setBanners(updatedBanners);
   };
-
   const saveTheDoc = async () => {
     const id = `${Date.now()}`;
     const _doc = {
