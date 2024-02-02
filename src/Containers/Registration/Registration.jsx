@@ -24,51 +24,32 @@ const Register = () => {
     const password = form.get("password");
     const userInfo = { name, email };
 
-    console.log(name);
-
-    fetch("http://localhost:5173/users", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(userInfo),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        Swal.fire({
-          title: "Success!",
-          text: "Product added successfully",
-          icon: "success",
-          confirmButtonText: "Cool",
-        });
-      })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-
-    createUser(email, password)
-      .then((result) => {
-        handleUpdateProfile(name, photo).then(() => {
-          <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />;
-          navigate("/");
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    createUser(email, password).then((result) => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
+      updateUserProfile(name,photo)
+        .then(() => {
+          const userInfo = {
+            name: name,
+            email: email,
+          };
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log("user added to database");
+              reset();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "User successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              navigate("/");
+            }
+          });
+        })
+        .catch((error) => console.log(error));
+    });
 
     if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z]).{6,}$/.test(password)) {
       setError(
@@ -82,13 +63,26 @@ const Register = () => {
         });
       }
     }
-  };
+
+  }
 
   const handleGoogleRegister = () => {
     googleSignIn().then((result) => {
       console.log(result.user);
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName
+      }
+      axiosPublic.post('/users', userInfo)
+      .then(res => {
+        console.log(res.data)
+        navigate('/')
+      })
     });
+  }
+
   };
+
 
   const notify = () => toast("Successfully register");
 
