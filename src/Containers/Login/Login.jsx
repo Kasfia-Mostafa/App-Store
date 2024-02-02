@@ -1,46 +1,62 @@
 import {  useContext, useState } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import { Link, useNavigate,  } from "react-router-dom";
-import { toast } from "react-toastify";
-
+import useAxiosPublic from "../../Hooks/Axios/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const login = () => {
   const [error, setError] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const { signIn, googleSignIn } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    console.log(e.currentTarget);
-    const form = new FormData(e.currentTarget);
-    const email = form.get("email");
-    const password = form.get("password");
-
-    if ((email, password)) {
-      signIn(email, password)
-        .then((result) => {
-          navigate("/");
-        })
-        .catch((error) => {
-          setError(error.massage);
-        });
-    }
-  };
+  const axiosPublic = useAxiosPublic()
   
-
-
-  const handleGoogleLogin = () => {
-    googleSignIn().then((result) => {
-      console.log(result.user);
-    });
-  };
-
-
-  const notification = () => toast("Successfully Login");
-
+    const { signIn, googleSignIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+  
+    const handleLogin = (e) => {
+      e.preventDefault();
+      console.log(e.currentTarget);
+      const form = new FormData(e.currentTarget);
+      const email = form.get("email");
+      const password = form.get("password");
+  
+      if ((email, password)) {
+        signIn(email, password)
+          .then((result) => {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Login successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate("/");
+          })
+          .catch((error) => {
+            setError(error.massage);
+          });
+      }
+    };
+  
+    const handleGoogleLogin = () => {
+     googleSignIn().then((result) => {
+        console.log(result.user);
+        const userInfo = {
+          email: result.user?.email,
+          name: result.user?.displayName
+        }
+        axiosPublic.post('/users', userInfo)
+        .then(res => {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Login successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate('/')
+        })
+      });
+    };
+  
   return (
    
       <div
@@ -98,9 +114,9 @@ const login = () => {
 
                 <div className="flex justify-center">
                   <button
-                    onClick={notification}
+                    
                     type="submit"
-                    className="text-white bg-gradient-to-r from-black to-slate-600 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                    className="text-white bg-gradient-to-r from-black to-slate-600 hover:bg-gradient-to-l font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                   >
                     Login
                   </button>
