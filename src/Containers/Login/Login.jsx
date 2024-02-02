@@ -1,50 +1,26 @@
-import {  useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
-import { Link, useNavigate,  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/Axios/useAxiosPublic";
 import Swal from "sweetalert2";
 
 const login = () => {
   const [error, setError] = useState("");
-  const axiosPublic = useAxiosPublic()
-  
-    const { signIn, googleSignIn } = useContext(AuthContext);
-    const navigate = useNavigate();
-  
-    const handleLogin = (e) => {
-      e.preventDefault();
-      console.log(e.currentTarget);
-      const form = new FormData(e.currentTarget);
-      const email = form.get("email");
-      const password = form.get("password");
-  
-      if ((email, password)) {
-        signIn(email, password)
-          .then((result) => {
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Login successfully",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            navigate("/");
-          })
-          .catch((error) => {
-            setError(error.massage);
-          });
-      }
-    };
-  
-    const handleGoogleLogin = () => {
-     googleSignIn().then((result) => {
-        console.log(result.user);
-        const userInfo = {
-          email: result.user?.email,
-          name: result.user?.displayName
-        }
-        axiosPublic.post('/users', userInfo)
-        .then(res => {
+  const axiosPublic = useAxiosPublic();
+
+  const { signIn, googleSignIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log(e.currentTarget);
+    const form = new FormData(e.currentTarget);
+    const email = form.get("email");
+    const password = form.get("password");
+
+    if ((email, password)) {
+      signIn(email, password)
+        .then((result) => {
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -52,25 +28,47 @@ const login = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-          navigate('/')
+          navigate("/");
         })
+        .catch((error) => {
+          setError(error.massage);
+        });
+    }
+  };
+
+  const handleGoogleLogin = () => {
+    googleSignIn().then((result) => {
+      console.log(result.user);
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName,
+      };
+      axiosPublic.post("/users", userInfo).then((res) => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Login successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/");
       });
-    };
-  
+    });
+  };
+
   return (
-   
-      <div
-        style={{
-          background: `url("https://i.ibb.co/p2RyHLN/bg.jpg")`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-        className="w-screen h-screen flex justify-center items-center "
-      >
+    <div
+      style={{
+        background: `url("https://i.ibb.co/p2RyHLN/bg.jpg")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+      className="w-screen h-screen flex justify-center items-center "
+    >
       <section className="w-full">
         <div className="flex flex-col items-center justify-center  px-6 py-8 mx-auto md:h-screen lg:py-0 text-white">
-        <div className="w-full bg-transparent backdrop-blur-md rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 ">
+          <div className="w-full bg-transparent backdrop-blur-md rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 ">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-3xl text-center font-bold leading-tight tracking-tight text-white">
                 Login to your account
@@ -81,9 +79,7 @@ const login = () => {
                 action="#"
               >
                 <div>
-                  <label
-                    className="block mb-2 text-sm font-medium text-white"
-                  >
+                  <label className="block mb-2 text-sm font-medium text-white">
                     Your email
                   </label>
                   <input
@@ -96,10 +92,7 @@ const login = () => {
                   />
                 </div>
                 <div>
-                  <label
-                    
-                    className="block mb-2 text-sm font-medium text-white dark:text-white"
-                  >
+                  <label className="block mb-2 text-sm font-medium text-white dark:text-white">
                     Password
                   </label>
                   <input
@@ -114,21 +107,20 @@ const login = () => {
 
                 <div className="flex justify-center">
                   <button
-                    
                     type="submit"
                     className="text-white bg-gradient-to-r from-black to-slate-600 hover:bg-gradient-to-l font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                   >
                     Login
                   </button>
                 </div>
-               <div className="flex justify-center">
-               <p className="text-sm font-light text-white">
-                  Do not have an account yet?
-                  <Link className="ml-2" to="/register">
-                    Register
-                  </Link>
-                </p>
-               </div>
+                <div className="flex justify-center">
+                  <p className="text-sm font-light text-white">
+                    Do not have an account yet?
+                    <Link className="ml-2" to="/register">
+                      Register
+                    </Link>
+                  </p>
+                </div>
               </form>
               <div className="flex justify-center">
                 <button
@@ -156,8 +148,7 @@ const login = () => {
           </div>
         </div>
       </section>
-      </div>
-    
+    </div>
   );
 };
 
