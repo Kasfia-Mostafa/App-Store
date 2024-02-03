@@ -1,8 +1,12 @@
 import { useState } from "react";
 import InputContainer from "../../../Components/Admin/InputContainer";
 import { FaMinus, FaPlus } from "react-icons/fa6";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../../Hooks/Axios/useAxiosPublic";
 
 const NewApps = () => {
+  const axiosPublic = useAxiosPublic();
+
   const [title, setTitle] = useState("");
   const [company, setCompany] = useState("");
   const [appIcons, setAppIcon] = useState("");
@@ -46,10 +50,24 @@ const NewApps = () => {
       cover,
       banners,
     };
-    console.log(_doc)
-  };
+
+    axiosPublic.post("/allApps", _doc).then((res) => {
+      console.log(res.data);
+      if (res.data.insertedId) {
+        // refetch()
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "App added",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+};
 
   const clearAllFixed = () => {};
+
 
   return (
     <div className="w-full flex flex-col justify-start items-center px-4 py-3 gap-2 ">
@@ -119,18 +137,21 @@ const NewApps = () => {
         placeholder="Description"
       />
       <div className="w-full flex justify-end item-center gap-20">
-        <button
-          className="border border-gray-600 px-8 py-2 rounded-md hover:border-none hover:bg-gradient-to-br hover:from-heroPrimary hover:to-heroSecondary hover:text-black cursor-pointer transition-all ease-in-out duration-100 active:scale-95"
-          onClick={saveTheDoc}
-        >
-          Add
-        </button>
+        
+          <button
+            className="border border-gray-600 px-8 py-2 rounded-md hover:border-none hover:bg-gradient-to-br hover:from-heroPrimary hover:to-heroSecondary hover:text-black cursor-pointer transition-all ease-in-out duration-100 active:scale-95"
+            onClick={saveTheDoc}
+          >
+            Add
+          </button>
+      
         <button
           className="border border-gray-600 px-8 py-2 rounded-md hover:border-none hover:bg-gradient-to-br hover:from-heroPrimary hover:to-heroSecondary hover:text-black cursor-pointer transition-all ease-in-out duration-100 active:scale-95"
           onClick={clearAllFixed}
         >
           Clear
         </button>
+       
       </div>
     </div>
   );

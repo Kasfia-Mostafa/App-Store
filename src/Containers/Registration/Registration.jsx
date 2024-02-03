@@ -16,7 +16,6 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log(e.currentTarget);
     const form = new FormData(e.currentTarget);
 
     const name = form.get("name");
@@ -28,7 +27,7 @@ const Register = () => {
 
     createUser(email, password).then((result) => {
       const loggedUser = result.user;
-      console.log(loggedUser);
+      // console.log(loggedUser);
       handleUpdateProfile(name, photo)
         .then(() => {
           const userInfo = {
