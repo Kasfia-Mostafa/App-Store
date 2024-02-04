@@ -1,5 +1,5 @@
 import NewApps from "./Apps/NewApps";
-import ListOfApps from "./ListOfApps";
+import ListOfApps from "./ListOfApps/ListOfApps";
 
 const AdminApps = () => {
   return (

@@ -63,21 +63,30 @@ const NewApps = () => {
         });
       }
     });
-};
-
-  const clearAllFixed = () => {
-    console.log('Before clearing:', { title, company, appIcon, reviews, totalReviews, downloads, cover, banners, description });
-    setTitle('');
-    setCompany('');
-    setAppIcon('');
-    setReviews('');
-    setTotalReviews('');
-    setDownloads('');
-    setCover('');
-    setBanners([]);
-    setDescription('');
   };
 
+  const clearAllFixed = () => {
+    console.log("Before clearing:", {
+      title,
+      company,
+      appIcon,
+      reviews,
+      totalReviews,
+      downloads,
+      cover,
+      banners,
+      description,
+    });
+    setTitle("");
+    setCompany("");
+    setAppIcon("");
+    setReviews("");
+    setTotalReviews("");
+    setDownloads("");
+    setCover("");
+    setBanners([]);
+    setDescription("");
+  };
 
   return (
     <div className="w-full flex flex-col justify-start items-center px-4 py-3 gap-2 ">
@@ -145,31 +154,26 @@ const NewApps = () => {
         onChangeText={(data) => setDownloads(data)}
         stateValue={downloads}
       />
-
       <textarea
         rows="10"
         className="w-full rounded-md outline-none border border-third shadow-md bg-secondary px-4 text-lg font-semibold fonts-sans"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Description"
-        
       />
       <div className="w-full flex justify-end item-center gap-20">
-        
-          <button
-            className="border border-gray-600 px-8 py-2 rounded-md hover:border-none hover:bg-gradient-to-br hover:from-heroPrimary hover:to-heroSecondary hover:text-black cursor-pointer transition-all ease-in-out duration-100 active:scale-95"
-            onClick={saveTheDoc}
-          >
-            Add
-          </button>
-      
+        <button
+          className="border border-gray-600 px-8 py-2 rounded-md hover:border-none hover:bg-gradient-to-br hover:from-heroPrimary hover:to-heroSecondary hover:text-black cursor-pointer transition-all ease-in-out duration-100 active:scale-95"
+          onClick={saveTheDoc}
+        >
+          Add
+        </button>
         <button
           className="border border-gray-600 px-8 py-2 rounded-md hover:border-none hover:bg-gradient-to-br hover:from-heroPrimary hover:to-heroSecondary hover:text-black cursor-pointer transition-all ease-in-out duration-100 active:scale-95"
           onClick={clearAllFixed}
         >
           Clear
         </button>
-       
       </div>
     </div>
   );
