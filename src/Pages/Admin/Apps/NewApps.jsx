@@ -9,10 +9,10 @@ const NewApps = () => {
 
   const [title, setTitle] = useState("");
   const [company, setCompany] = useState("");
-  const [appIcons, setAppIcon] = useState("");
+  const [appIcon, setAppIcon] = useState("");
   const [reviews, setReviews] = useState("");
   const [totalReviews, setTotalReviews] = useState("");
-  const [Downloads, setDownloads] = useState("");
+  const [downloads, setDownloads] = useState("");
   const [cover, setCover] = useState("");
   const [banners, setBanners] = useState([]);
   const [description, setDescription] = useState("");
@@ -43,7 +43,7 @@ const NewApps = () => {
       _id: id,
       title,
       company,
-      appIcons,
+      appIcon,
       reviews,
       totalReviews,
       description,
@@ -54,7 +54,6 @@ const NewApps = () => {
     axiosPublic.post("/allApps", _doc).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
-        // refetch()
         Swal.fire({
           position: "top-center",
           icon: "success",
@@ -66,7 +65,18 @@ const NewApps = () => {
     });
 };
 
-  const clearAllFixed = () => {};
+  const clearAllFixed = () => {
+    console.log('Before clearing:', { title, company, appIcon, reviews, totalReviews, downloads, cover, banners, description });
+    setTitle('');
+    setCompany('');
+    setAppIcon('');
+    setReviews('');
+    setTotalReviews('');
+    setDownloads('');
+    setCover('');
+    setBanners([]);
+    setDescription('');
+  };
 
 
   return (
@@ -74,10 +84,12 @@ const NewApps = () => {
       <InputContainer
         placeholder="App Title"
         onChangeText={(data) => setTitle(data)}
+        stateValue={title}
       />
       <InputContainer
         placeholder="Cover Image"
         onChangeText={(data) => setCover(data)}
+        stateValue={cover}
       />
       <div className="w-full flex flex-col justify-start items-center p-2 border border-gray-600 border-dashed rounder-md gap-2">
         {banners.map((input) => (
@@ -111,22 +123,27 @@ const NewApps = () => {
       <InputContainer
         placeholder="Company name"
         onChangeText={(data) => setCompany(data)}
+        stateValue={company}
       />
       <InputContainer
         placeholder="App icon image"
         onChangeText={(data) => setAppIcon(data)}
+        stateValue={appIcon}
       />
       <InputContainer
         placeholder="App reviews"
         onChangeText={(data) => setReviews(data)}
+        stateValue={reviews}
       />
       <InputContainer
         placeholder="Total App Reviews"
         onChangeText={(data) => setTotalReviews(data)}
+        stateValue={totalReviews}
       />
       <InputContainer
         placeholder="Total Downloads"
         onChangeText={(data) => setDownloads(data)}
+        stateValue={downloads}
       />
 
       <textarea
@@ -135,6 +152,7 @@ const NewApps = () => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Description"
+        
       />
       <div className="w-full flex justify-end item-center gap-20">
         
