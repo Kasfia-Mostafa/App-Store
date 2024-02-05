@@ -27,7 +27,7 @@ const ListOfApps = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-wrap justify-normal items-start gap-4">
+    <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4">
       {newApps.map((newApp) => (
         <ListOfApp key={newApp._id} newApp={newApp}></ListOfApp>
       ))}
