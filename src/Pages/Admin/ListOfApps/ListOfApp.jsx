@@ -3,7 +3,7 @@ import { FaTrash } from "react-icons/fa6";
 
 const ListOfApp = ({ newApp }) => {
   const { appIcon, title, company } = newApp || [];
-  const [deleteApp, setDeleteApp] = useState();
+  // const [deleteApp, setDeleteApp] = useState();
   return (
    
       <div className="border-2 border-heroPrimary rounded-md px-3 py-2 flex items-center justify-start gap-3 relative h-24">
