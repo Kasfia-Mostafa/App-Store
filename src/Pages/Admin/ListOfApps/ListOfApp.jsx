@@ -3,7 +3,7 @@ import { FaTrash } from "react-icons/fa6";
 
 const ListOfApp = ({ newApp }) => {
   const { appIcon, title, company } = newApp || [];
-  // const [deleteApp, setDeleteApp] = useState();
+  const [deleteApp, setDeleteApp] = useState();
   return (
    
       <div className="border-2 border-heroPrimary rounded-md px-3 py-2 flex items-center justify-start gap-3 relative h-24">
@@ -24,9 +24,9 @@ const ListOfApp = ({ newApp }) => {
         </div>
 
         <div className="fixed insert-0 backdrop-blur-md flex justify-center item-center">
-          {/* <div className="border rounded-md border-x-heroPrimary p-4 flex flex-col justify-center items-center gap-4">
+          <div className="border rounded-md border-x-heroPrimary p-4 flex flex-col justify-center items-center gap-4">
           <h2 className="text-2xl font-medium">Are you sure, Do you want to delete it ?</h2>
-          </div> */}
+          </div>
         </div>
 
       </div>
