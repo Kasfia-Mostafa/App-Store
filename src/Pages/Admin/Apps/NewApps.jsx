@@ -38,9 +38,7 @@ const NewApps = () => {
     setBanners(updatedBanners);
   };
   const saveTheDoc = async () => {
-    const id = `${Date.now()}`;
     const _doc = {
-      _id: id,
       title,
       company,
       appIcon,

@@ -31,6 +31,7 @@ const ListOfApps = () => {
       {newApps.map((newApp) => (
         <ListOfApp key={newApp._id} newApp={newApp}></ListOfApp>
       ))}
+      
     </div>
   );
 };
