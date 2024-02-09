@@ -1,37 +1,41 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../Hooks/Axios/useAxiosPublic";
 import ListOfApp from "./ListOfApp";
+import useApps from "../../../Hooks/Apps/useApps";
+import NewApps from "../Apps/NewApps";
 // import Loader from "../../Utils/Loader/Loader"
 
 const ListOfApps = () => {
   const axiosPublic = useAxiosPublic();
-  const [newApps, setNewApps] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [newApps, setNewApps] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
+ 
+  const { data:newApps } = useApps({ queryKey: "myQueryKey" });
+  console.log(newApps)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await axiosPublic.get("/allApps");
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const response = await axiosPublic.get("/allApps");
 
-        // Set the data in the state
-        setNewApps(response.data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  //       // Set the data in the state
+  //       setNewApps(response.data);
+  //     } catch (error) {
+  //       setError(error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4">
       {newApps.map((newApp) => (
         <ListOfApp key={newApp._id} newApp={newApp}></ListOfApp>
       ))}
-      
     </div>
   );
 };
