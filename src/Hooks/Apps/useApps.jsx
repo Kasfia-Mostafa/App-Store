@@ -5,7 +5,7 @@ import useAxiosPublic from "../Axios/useAxiosPublic";
 const useApps = ({ queryKey, queryFn = { refetchOnWindowFocus: false } }) => {
   const axiosPublic = useAxiosPublic();
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: [queryKey], // Convert queryKey to an array
+    queryKey: [queryKey], 
     queryFn: async () => {
       try {
         const response = await axiosPublic.get(`/allApps`);
